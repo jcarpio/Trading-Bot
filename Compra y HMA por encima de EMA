@@ -1,0 +1,44 @@
+//@version=5
+indicator("Compra y HMA por encima de EMA - Señales de Compra/Venta", overlay=true)
+
+// Parámetros
+longitudHMA = 14
+longitudEMA = 55
+
+// Cálculo del Hull Moving Average
+precioHMA = close
+raizCuadradaLongitudHMA = math.round(math.sqrt(longitudHMA)) // Redondeo para cumplir con el tipo de dato esperado
+hullMA = ta.wma(2 * ta.wma(precioHMA, longitudHMA / 2) - ta.wma(precioHMA, longitudHMA), raizCuadradaLongitudHMA)
+
+// Cálculo de la EMA
+ema = ta.ema(close, longitudEMA)
+
+// Condiciones para la alarma y señales de compra/venta
+condicionAlarma = hullMA > ema and ta.crossover(hullMA, ema)
+condicionCompra = ta.crossover(hullMA, ema)
+condicionVenta = ta.crossunder(hullMA, ema)
+
+// Pintar los indicadores en el gráfico
+plot(hullMA, color=color.blue, linewidth=2, title="HMA")
+plot(ema, color=color.red, linewidth=2, title="EMA")
+
+// Crear las condiciones de alerta
+alertcondition(condicionAlarma, title="Compra y HMA por encima de EMA y Venta", message="Compra HMA está por encima de la EMA de 55 periodos")
+alertcondition(condicionCompra, title="Señal de Compra", message="Condición de compra: HMA cruza por encima de EMA")
+alertcondition(condicionVenta, title="Señal de Venta", message="Condición de venta: HMA cruza por debajo de EMA")
+
+// Plot de señales de compra/venta en el gráfico
+plotshape(series=condicionAlarma, location=location.belowbar, color=color.green, style=shape.labelup, size=size.small, title="Compra", text="Buy!")
+// plotshape(series=condicionVenta, location=location.abovebar, color=color.red, style=shape.labeldown, size=size.small, title="Venta", text="V")
+
+// Instrucciones para el usuario:
+// Para usar las alertas, debe agregar este script a su gráfico en TradingView,
+// luego crear una alerta y seleccionar la condición deseada como la condición para la alerta.
+
+
+// Instrucciones adicionales para el usuario
+// Para usar esta alerta, debe agregar este script a su gráfico en TradingView,
+// luego crear una alerta y seleccionar "Alerta HMA por encima de EMA" como condición.
+// Instrucciones adicionales para el usuario
+// Para usar esta alerta, debe agregar este script a su gráfico en TradingView,
+// luego crear una alerta y seleccionar "Alerta HMA por encima de EMA" como condición.
