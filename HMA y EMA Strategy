@@ -1,0 +1,33 @@
+//@version=5
+strategy("HMA y EMA Strategy", overlay=true)
+
+// Configuración de la longitud para HMA y EMA
+lengthHMA = input(9, title="Longitud HMA")
+lengthEMA = input(55, title="Longitud EMA")
+
+// Cálculo del Hull Moving Average
+precioHMA = close
+sqrtLength = math.sqrt(lengthHMA)
+preHMA = 2 * ta.wma(precioHMA, lengthHMA / 2) - ta.wma(precioHMA, lengthHMA)
+hullMA = ta.wma(preHMA, math.round(sqrtLength))
+
+// Cálculo de la EMA
+ema = ta.ema(close, lengthEMA)
+
+// Detectar el cambio de tendencia en HMA
+hullRising = hullMA > hullMA[1]
+hullFalling = hullMA < hullMA[1]
+
+// Condiciones de entrada
+condicionEntradaLarga = hullRising and ema > hullMA
+condicionEntradaCorta = hullFalling and ema < hullMA
+
+// Ejecutar entradas
+if (condicionEntradaLarga)
+    strategy.entry("HmaLE", strategy.long, comment="HMA Larga Entrada")
+if (condicionEntradaCorta)
+    strategy.entry("HmaSE", strategy.short, comment="HMA Corta Entrada")
+
+// Visualización de EMA y HMA en el gráfico
+plot(hullMA, color=color.blue, title="HMA")
+plot(ema, color=color.red, title="EMA")
