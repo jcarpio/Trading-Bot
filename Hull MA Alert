@@ -1,0 +1,38 @@
+//@version=5
+indicator("Hull MA Alert", overlay=true, shorttitle="HMA Alert")
+
+// Input for the Hull Moving Average period
+hmaPeriod = input.int(14, title="HMA Period", minval=1)
+
+// Calculate the Hull Moving Average
+weightedClose = (high + low + 2 * close) / 4
+sqrtPeriod = math.sqrt(hmaPeriod)
+roundedSqrtPeriod = math.round(sqrtPeriod) // Round sqrtPeriod to nearest integer
+hullMA = ta.wma(2 * ta.wma(weightedClose, hmaPeriod / 2) - ta.wma(weightedClose, hmaPeriod), roundedSqrtPeriod)
+
+// Plot the HMA on the chart
+plot(hullMA, color=color.blue, linewidth=2, title="Hull MA")
+
+// Generate Buy and Sell signals
+priceCrossedAboveHMA = ta.crossover(close, hullMA)
+priceCrossedBelowHMA = ta.crossunder(close, hullMA)
+
+// Plot labels for Buy and Sell signals on the chart
+if (priceCrossedAboveHMA)
+    label.new(bar_index, low, "BUY", color=color.green, textcolor=color.white, style=label.style_label_up, size=size.small)
+if (priceCrossedBelowHMA)
+    label.new(bar_index, high, "SELL", color=color.red, textcolor=color.white, style=label.style_label_down, size=size.small)
+
+// Create alert conditions for Buy and Sell signals
+alertcondition(condition=priceCrossedAboveHMA, title="Buy Alert", message="Price crossed above HMA. Consider buying.")
+alertcondition(condition=priceCrossedBelowHMA, title="Sell Alert", message="Price crossed below HMA. Consider selling.")
+
+
+
+
+// Instructions for setting up smartphone notifications in TradingView
+// 1. After applying this script to your chart, click the "Create Alert" button on TradingView.
+// 2. Choose the "Hull MA Alert" from the condition dropdown menu.
+// 3. Select "Buy Alert" in the next dropdown.
+// 4. Ensure to check the "Send email-to-SMS" or "Show pop-up" options to receive notifications on your phone.
+// 5. Configure any additional alert settings as desired and then click "Create".
