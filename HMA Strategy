@@ -1,0 +1,29 @@
+//@version=5
+strategy("HMA Strategy", overlay=true)
+
+// Configuración de la longitud para HMA
+lengthHMA = input(14, title="Longitud HMA")
+
+// Cálculo del Hull Moving Average
+precioHMA = close
+sqrtLength = math.sqrt(lengthHMA)
+hullMA = ta.wma(2 * ta.wma(precioHMA, lengthHMA / 2) - ta.wma(precioHMA, lengthHMA), math.ceil(sqrtLength))
+
+// Determinar la dirección de la tendencia del HMA comparando el HMA actual con el HMA anterior
+hmaPrev = nz(hullMA[1], hullMA) // nz se utiliza para manejar el caso en que hullMA[1] sea na
+tendenciaHMA = hullMA > hmaPrev ? 1 : hullMA < hmaPrev ? -1 : 0
+
+// Condiciones de entrada y salida
+condicionEntradaLarga = tendenciaHMA == 1
+condicionEntradaCorta = tendenciaHMA == -1
+
+// Ejecutar entradas y salidas
+if (condicionEntradaLarga)
+    strategy.entry("HmaLE", strategy.long, comment="HMA Larga Entrada")
+if (condicionEntradaCorta)
+    strategy.entry("HmaSE", strategy.short, comment="HMA Corta Entrada")
+
+// Visualización del HMA en el gráfico
+plot(hullMA, color=color.blue, title="HMA")
+
+
