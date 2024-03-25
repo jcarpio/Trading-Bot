@@ -1,0 +1,28 @@
+// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © enkir
+
+//@version=5
+strategy("Cruce de medias", overlay=true, commission_value=0, default_qty_type=strategy.percent_of_equity, default_qty_value = 100, slippage = 0)
+
+media_rapida = input.int(10, minval=1)
+src1 = input(close, title="Source")
+media_movil_10 = ta.sma(src1, media_rapida)
+
+media_lenta = input.int(100, minval=1)
+src3 = input(close, title="Source")
+media_movil_100 = ta.sma(src3, media_lenta)
+
+longCondition = media_movil_10 > media_movil_100
+
+if longCondition
+    strategy.entry("Compra", strategy.long, comment = "Compra")
+
+ExitlongCondition = media_movil_10 < media_movil_100
+
+if ExitlongCondition
+    strategy.close("Compra", comment= "Cierre de compra")
+
+
+
+plot(media_movil_10, color=color.blue, title="MM10")
+plot(media_movil_100, color=color.red, title="MM100")
