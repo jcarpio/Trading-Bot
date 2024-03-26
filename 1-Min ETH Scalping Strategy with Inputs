@@ -1,0 +1,41 @@
+/@version=5
+strategy("1-Min ETH Scalping Strategy with Inputs", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+// Input Parameters for Users
+input_emaFastLength = input.int(50, "Fast EMA Length", minval=1)
+input_emaSlowLength = input.int(100, "Slow EMA Length", minval=1)
+input_kPeriod = input.int(14, "Stochastic K Period", minval=1)
+input_dPeriod = input.int(3, "Stochastic D Period", minval=1)
+input_slowing = input.int(3, "Stochastic Slowing", minval=1)
+input_overboughtLevel = input.int(80, "Overbought Level", minval=0, maxval=100)
+input_oversoldLevel = input.int(20, "Oversold Level", minval=0, maxval=100)
+
+// EMA Calculations
+emaFast = ta.ema(close, input_emaFastLength)
+emaSlow = ta.ema(close, input_emaSlowLength)
+
+// Stochastic Oscillator Calculations
+stochK = ta.stoch(close, high, low, input_kPeriod)
+stochD = ta.sma(stochK, input_dPeriod)
+
+// Entry and Exit Conditions
+longCondition = ta.crossover(emaFast, emaSlow) and stochK > input_oversoldLevel and stochD > input_oversoldLevel
+exitCondition = ta.crossunder(emaFast, emaSlow) or stochK < input_overboughtLevel or stochD < input_overboughtLevel
+
+
+
+// Plotting EMAs and Stochastic Levels
+plot(emaFast, color=color.red, title="Fast EMA")
+plot(emaSlow, color=color.blue, title="Slow EMA")
+hline(input_overboughtLevel, "Overbought Level", color=color.red)
+hline(input_oversoldLevel, "Oversold Level", color=color.green)
+
+// Strategy Execution
+if (longCondition)
+    strategy.entry("Long", strategy.long)
+
+if (exitCondition)
+    strategy.close("Long")
+
+// Note to Users for Heikin Ashi
+// comment: "Switch to Heikin Ashi candlesticks manually in the chart settings for better trend visualization."
