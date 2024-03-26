@@ -37,7 +37,19 @@ El mensaje tendrá el siguiente formato
   }
 ```
 Obtendremos las API KEYs de la web de Binance Future Testnet  ![Alt text](binance_api_key.png "Binance API KEY")
-  
+
+Configuramos el mensaje de la Alerta de Trading View que conectará con tradeadapter.com y desde este a Binance Future Testnet. De esta forma tendremos funcionando nuestro Trading Bot que podremos probar antes de pasar a Binance con operaciones reales.
+
+Siguiendo las indicaciones del vídeo Trading ALGORÍTMICO: Cómo crear una estrategia ganadora de trading con TradingView, debemos introducir en nuestro script Stop Loss de diferentes tipos. Por ejemplo podemos introducir un Stop Loss si la rentabilidad de nuestro algoritmo no alcanza un determinado valor. En definitiva debemos introducir elementos que nos permitan parar el Trading Bot si, por cualquier circunstancia, deja de funcionar correctamente.
+
+Es importante también, solicitar a Chat GPT que introduzca los parámetros como inputs, y que introduzca stop loss en nuestras operaciones. Es importante también, no olvidar introducir los valores de las comisiones ya que este valor puede hacer que una estrategia deje de ser rentable.
+
+Para acelerar las pruebas hemos tomado la temporización en Trading View de 1 minuto, sin embargo no he encontrado ninguna estrategia rentable con este tiempo tan corto.
+
+# Conclusiones
+
+La creación de este primer Trading Bot ha sido sorprendentemente sencilla con la ayuda de un amigo experto en trading y con Chat GPT. En los casos que ha fallado, introduciendo el error que mostraba Trading View ha sido capaz de corregir el fallo en el 100% de las ocasiones. El procedimiento de conexión con tradeadapter.com ha sido sencillo. Hemos tenido que registrarnos para poder realizar las operaciones y después de 7 días de pruebas, tendremos que pagar la suscripción si queremos seguir utilizando el servicio de tradeadapter.com. Desde el punto de vista de la seguridad, tradeadapter.como no aporta muchas opciones. Para una implementación definitiva, mi recomendación sería buscar otra alternativa. Implementar un servidor que tome las peticiones 
+ ![Tradeadapter orders](tradeadapter.png "Tradeadapter orders")  
 # Links
 ## Tradeadapter
 https://tradeadapter.com/
