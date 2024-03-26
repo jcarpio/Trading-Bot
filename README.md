@@ -4,7 +4,7 @@
 Para crear el Trading bot, primero crearemos una estrategia en trading view usando Chat GPT. Podemos indicar en nuestra consulta a Chat GPT que incluya los parámetros como input para después
 poderlos modificar facilmente desde el testeador de estrategias de Trading View. Para poder hacer este bot hemos contratado la opción Essential por 14.95$ al mes a 26/03/2024.
 La estrategia de medias cruzadas que da muy buenos resultados en la gráfica 4h con 11 de média rápida y 195 de media lenta. 
-![Alt text](trading_bot1.png "Estrategia medias cruzadas 4h ETH")
+![Alt text](trading_bot_1.png "Estrategia medias cruzadas 4h ETH")
 
 # Links
 ## Tradeadapter
