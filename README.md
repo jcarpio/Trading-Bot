@@ -48,7 +48,7 @@ Para acelerar las pruebas hemos tomado la temporización en Trading View de 1 mi
 
 # Conclusiones
 
-La creación de este primer Trading Bot ha sido sorprendentemente sencilla con la ayuda de un amigo experto en trading y con Chat GPT. En los casos que ha fallado, introduciendo el error que mostraba Trading View ha sido capaz de corregir el fallo en el 100% de las ocasiones. El procedimiento de conexión con tradeadapter.com ha sido sencillo. Hemos tenido que registrarnos para poder realizar las operaciones y después de 7 días de pruebas, tendremos que pagar la suscripción si queremos seguir utilizando el servicio de tradeadapter.com. Desde el punto de vista de la seguridad, tradeadapter.como no aporta muchas opciones. Para una implementación definitiva, mi recomendación sería buscar otra alternativa. Implementar un servidor que tome las peticiones 
+La creación de este primer Trading Bot ha sido sorprendentemente sencilla con la ayuda de un amigo experto en trading y con Chat GPT. En los casos que ha fallado, introduciendo el error que mostraba Trading View ha sido capaz de corregir el fallo en el 100% de las ocasiones. El procedimiento de conexión con tradeadapter.com ha sido sencillo. Hemos tenido que registrarnos para poder realizar las operaciones y después de 7 días de pruebas, tendremos que pagar la suscripción si queremos seguir utilizando el servicio de tradeadapter.com. Desde el punto de vista de la seguridad, tradeadapter.como no aporta muchas opciones. Para una implementación definitiva, mi recomendación sería buscar otra alternativa. Implementar un servidor que tome las peticiones POST enviadas desde las notificaciones de Trading View, o bien otra alternativa que ofrezca mayor nivel de seguridad. Te dejo algunas alternativas en el apartado Alternativas para Tradeadapter de la sección Links. 
  ![Tradeadapter orders](tradeadapter.png "Tradeadapter orders")  
 # Links
 ## Tradeadapter
@@ -62,3 +62,8 @@ https://www.tradingview.com/
 
 ## Trading ALGORÍTMICO: Cómo crear una estrategia ganadora de trading con TradingView
 https://www.youtube.com/watch?v=orSfLwMa4E0
+
+## Alternatives to Tradeadapter
+https://aleeert.com/
+https://cryptorobotics.net/
+https://www.growlonix.com/
