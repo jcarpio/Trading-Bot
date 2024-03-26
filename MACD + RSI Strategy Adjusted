@@ -1,0 +1,30 @@
+//@version=5
+strategy("MACD + RSI Strategy Adjusted", overlay=true, initial_capital=1000, default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+// Configuración de los indicadores
+fastLength = input(12, title="Longitud Rápida MACD")
+slowLength = input(26, title="Longitud Lenta MACD")
+signalSmoothing = input(9, title="Suavizado de la Señal MACD")
+rsiLength = input(14, title="Longitud RSI")
+rsiOverbought = input(70, title="RSI Sobrecompra")
+rsiOversold = input(30, title="RSI Sobrevendido")
+
+// Cálculo de MACD
+[macdLine, signalLine, _] = ta.macd(close, fastLength, slowLength, signalSmoothing)
+
+// Cálculo de RSI
+rsi = ta.rsi(close, rsiLength)
+
+// Condiciones de entrada simplificadas para demostración
+longCondition = ta.crossover(macdLine, signalLine) or rsi < rsiOversold
+shortCondition = ta.crossunder(macdLine, signalLine) or rsi > rsiOverbought
+
+// Ejecutar entradas
+if (longCondition)
+    strategy.entry("MACD_RSI_Long", strategy.long, comment="MACD_RSI_Long")
+if (shortCondition)
+    strategy.entry("MACD_RSI_Short", strategy.short, comment="MACD_RSI_Short")
+
+// Visualización de señales en el gráfico
+plotshape(series=longCondition, location=location.belowbar, color=color.green, style=shape.labelup, size=size.small, title="Compra", text="C")
+plotshape(series=shortCondition, location=location.abovebar, color=color.red, style=shape.labeldown, size=size.small, title="Venta", text="V")
