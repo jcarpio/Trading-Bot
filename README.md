@@ -72,6 +72,9 @@ https://www.youtube.com/watch?v=orSfLwMa4E0
 ## Binace How to set up signal trading with tradingview
 https://www.binance.com/en/support/faq/how-to-set-up-signal-trading-with-tradingview-3f57291b56474f5e900cc4b754f61ff3
 
+## 
+https://courses.theartoftrading.com/pages/a-simple-pullback-strategy-in-pine-script
+
 ## Alternatives to Tradeadapter
 https://aleeert.com/
 https://cryptorobotics.net/
