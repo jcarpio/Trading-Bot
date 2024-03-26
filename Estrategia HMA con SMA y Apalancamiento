@@ -1,0 +1,43 @@
+//@version=5
+indicator("Estrategia HMA con SMA y Apalancamiento", overlay=true, shorttitle="HMA+SMA Apalancamiento")
+
+// Parámetros de la estrategia
+i_hmaLength = input.int(14, title="Longitud HMA")
+i_smaLength = input.int(55, title="Longitud SMA")
+i_initialCapital = input.float(10000, title="Capital Inicial")
+i_stopLossPercent = input.float(1.5, title="Stop Loss (%)")
+i_pendienteMinima = input.float(0.1, title="Pendiente Mínima para Entrada")
+i_maxLeverage = input.float(10, title="Apalancamiento Máximo")
+
+// Cálculo del HMA y SMA
+price = close
+sqrtLength = math.sqrt(i_hmaLength)
+wmaf = ta.wma(price, i_hmaLength / 2)
+wmas = ta.wma(price, i_hmaLength)
+hma = ta.wma(2 * wmaf - wmas, math.round(sqrtLength))
+sma = ta.sma(price, i_smaLength)
+
+// Cálculo de la pendiente del HMA
+pendienteHMA = hma - hma[1]
+
+// Condiciones para la estrategia
+condicionTendenciaAlcista = close > sma // El precio debe estar por encima de la SMA de 55 periodos
+condicionCompra = pendienteHMA > i_pendienteMinima and ta.crossover(price, hma) and condicionTendenciaAlcista
+condicionVenta = ta.crossunder(price, hma)
+
+// Estrategia
+if (condicionCompra)
+    strategy.entry("Compra HMA", strategy.long, qty=(i_initialCapital / close) * i_maxLeverage)
+    
+if (condicionVenta)
+    strategy.close("Compra HMA")
+
+// Stop Loss
+if (strategy.position_size > 0)
+    strategy.exit(id="SL Compra HMA", stop=price * (1 - i_stopLossPercent / 100))
+
+// Plot
+plot(hma, title="HMA", color=color.blue)
+plot(sma, title="SMA 55", color=color.red)
+
+
