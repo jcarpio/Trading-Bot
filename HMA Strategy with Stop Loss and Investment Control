@@ -1,0 +1,30 @@
+//@version=5
+strategy("HMA Strategy with Stop Loss and Investment Control", overlay=true)
+
+// Parámetros de la Estrategia
+lengthHMA = input(14, title="Longitud HMA")
+stopLossPercent = input(1, title="Stop Loss (%)") / 100
+// Las siguientes líneas son para propósitos demostrativos y educativos.
+// TradingView gestiona el capital a través de las configuraciones de la estrategia.
+capitalDisponible = input(50000, title="Capital Disponible para Invertir")
+porcentajeCapitalInvertir = input(100, title="Porcentaje de Capital a Invertir (%)") / 100
+
+// Cálculo del HMA
+price = close
+sqrtLength = math.sqrt(lengthHMA)
+hullMA = ta.wma(2 * ta.wma(price, lengthHMA / 2) - ta.wma(price, lengthHMA), math.round(sqrtLength))
+
+// Entrada Larga: Cerrar por encima del HMA
+longCondition = ta.crossover(close, hullMA)
+if (longCondition)
+    strategy.entry("Long", strategy.long, qty=strategy.equity * porcentajeCapitalInvertir / close)
+    strategy.exit("Exit Long", "Long", loss=stopLossPercent * close)
+
+// Entrada Corta: Cerrar por debajo del HMA
+shortCondition = ta.crossunder(close, hullMA)
+if (shortCondition)
+    strategy.entry("Short", strategy.short, qty=strategy.equity * porcentajeCapitalInvertir / close)
+    strategy.exit("Exit Short", "Short", loss=stopLossPercent * close)
+
+// Visualización
+plot(hullMA, color=color.blue, linewidth=2, title="HMA")
