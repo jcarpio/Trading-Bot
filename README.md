@@ -18,7 +18,26 @@ La estrategia de medias cruzadas que da muy buenos resultados en la gráfica 4h 
 En el siguiente enlace tenemos las instrucciones para configurar la conexión entre Trading View y Binance https://tradeadapter.com/connect_tradingview_to_binance
 Crearemos una alarma y enviaremos un mensaje ![Alt text](alert_notification_setup.png "Alert notification setup")
 
-   
+El mensaje tendrá el siguiente formato
+```
+{
+      "binance_api_key": "PUT YOUR BINANCE API KEY HERE",
+      "binance_secret": "PUT YOUR BINANCE SECRER HERE",
+      "real_order":"Yes / No",
+      "order_market":"Spot / Margin / Futures",
+      "order_type":"Market / Limit",
+      "isolated_margin": "Yes / No",
+      "auto_rounding": "Yes",
+      "exchange": "{{exchange}}",
+      "ticker": "{{ticker}}",
+      "time": "{{timenow}}",
+      "order_contracts": "{{strategy.order.contracts}}",
+      "order_action": "{{strategy.order.action}}",
+      "order_price": "{{strategy.order.price}}"
+  }
+
+```
+  
 # Links
 ## Tradeadapter
 https://tradeadapter.com/
