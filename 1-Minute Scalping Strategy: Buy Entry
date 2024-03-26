@@ -1,0 +1,36 @@
+//@version=5
+strategy("1-Minute Scalping Strategy: Buy Entry", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+// Define the parameters for the EMAs
+length50EMA = 50
+length100EMA = 100
+
+// Calculate the EMAs
+ema50 = ta.ema(close, length50EMA)
+ema100 = ta.ema(close, length100EMA)
+
+// Stochastic parameters
+kPeriod = 14
+dPeriod = 3
+slowing = 3
+smoothK = ta.sma(ta.stoch(close, high, low, kPeriod), slowing)
+smoothD = ta.sma(smoothK, dPeriod)
+
+// Entry condition
+// 1. 50-EMA > 100-EMA
+// 2. Price is close to the EMA indicators (this will be subjective; "close" is not defined here)
+// 3. Stochastic rises above the 20 level
+longCondition = ema50 > ema100 and smoothK > 20 and smoothK[1] <= 20
+
+// Plotting
+plot(ema50, "EMA 50", color=color.red)
+plot(ema100, "EMA 100", color=color.blue)
+hline(20, "Stochastic Level 20", color=color.orange)
+
+// Execute the strategy
+if (longCondition)
+    strategy.entry("Long Position", strategy.long)
+
+// Additional visuals for the Stochastic conditions being met
+bgcolor(longCondition ? color.new(color.green, 90) : na)
+
