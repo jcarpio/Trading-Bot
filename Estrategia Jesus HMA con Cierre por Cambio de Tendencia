@@ -1,0 +1,43 @@
+//@version=5
+strategy("Estrategia Jesus HMA con Cierre por Cambio de Tendencia", overlay=true, initial_capital=10000, default_qty_type=strategy.percent_of_equity, default_qty_value=10, currency=currency.USD)
+
+lengthHMA = input.int(14, title="Longitud HMA")
+stopLossPct = input.float(10, title="Stop Loss (%)")
+priceRiseToClose = input.float(3, title="Porcentaje de Subida para Cerrar (%)") / 100
+maxCapitalPerTrade = input.float(1000, title="Capital Máximo por Operación")
+leverage = input.float(1, title="Apalancamiento Máximo")
+
+price = close
+hma = ta.wma(2 * ta.wma(price, lengthHMA / 2) - ta.wma(price, lengthHMA), math.round(math.sqrt(lengthHMA)))
+
+var float lastHighPrice = na
+var bool canBuy = true
+
+// Regla de subida del 3% y cierre de posición
+if (strategy.position_size > 0 and ((close - strategy.opentrades.entry_price(0)) / strategy.opentrades.entry_price(0)) >= priceRiseToClose)
+    strategy.close("Long")
+    lastHighPrice := close
+    canBuy := false
+
+// Permitir comprar nuevamente si el precio supera el último máximo alcanzado antes de una caída
+if (not na(lastHighPrice) and close > lastHighPrice)
+    canBuy := true
+
+// Condición de entrada
+longCondition = ta.crossover(price, hma) and canBuy
+
+// Ejecutar entrada
+if (longCondition)
+    strategy.entry("Long", strategy.long)
+
+// Cierre de posición por cambio de tendencia
+changeOfTrend = ta.crossunder(price, hma)
+if (changeOfTrend)
+    strategy.close("Long")
+
+// Stop Loss
+if (strategy.position_size > 0)
+    strategy.exit("Stop Loss", from_entry="Long", stop=strategy.opentrades.entry_price(0) * (1 - stopLossPct / 100))
+
+// Dibujar el HMA
+plot(hma, color=color.blue, title="HMA")
