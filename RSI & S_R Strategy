@@ -1,0 +1,28 @@
+//@version=5
+strategy("RSI & S_R Strategy", overlay=true)
+
+// Parámetros de la Estrategia
+rsiLength = input(14, title="Longitud RSI")
+rsiOverbought = input(70, title="RSI Sobrecompra")
+rsiOversold = input(30, title="RSI Sobrevendido")
+support = input(18000, title="Nivel de Soporte") // Ejemplo, ajustar según el análisis
+resistance = input(60000, title="Nivel de Resistencia") // Ejemplo, ajustar según el análisis
+
+// Cálculo del RSI
+rsi = ta.rsi(close, rsiLength)
+
+// Lógica de Entrada
+longCondition = close < support and rsi < rsiOversold
+shortCondition = close > resistance and rsi > rsiOverbought
+
+// Ejecutar Entradas
+if (longCondition)
+    strategy.entry("RSI_SR_Long", strategy.long, comment="RSI_SR_Long")
+if (shortCondition)
+    strategy.entry("RSI_SR_Short", strategy.short, comment="RSI_SR_Short")
+
+// Visualización de Niveles de S/R en el Gráfico
+hline(support, "Soporte", color=color.green)
+hline(resistance, "Resistencia", color=color.red)
+
+
