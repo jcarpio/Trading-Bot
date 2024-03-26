@@ -1,0 +1,32 @@
+//@version=5
+strategy("Estrategia HMA con Control de Riesgo", overlay=true, initial_capital=10000, default_qty_type=strategy.percent_of_equity, currency="USD")
+
+// Parámetros configurables
+i_hmaLength = input.int(14, "Longitud HMA")
+i_maxLeverage = input.float(10, "Apalancamiento Máximo")
+i_stopLossPercent = input.float(1.5, "Stop Loss (%)")
+i_pendienteMinima = input.float(0.1, "Pendiente Mínima para Entrada", step=0.01)
+
+// Cálculo del HMA
+price = close
+sqrtLength = math.sqrt(i_hmaLength)
+hma = ta.wma(2 * ta.wma(price, i_hmaLength / 2) - ta.wma(price, i_hmaLength), math.round(sqrtLength))
+slope = hma - hma[1]
+
+// Condiciones de entrada y salida
+entraCondicion = slope > i_pendienteMinima and slope > slope[1]
+saleCondicion = slope < slope[1]
+
+// Gestión de operaciones
+if (entraCondicion)
+    strategy.entry("Compra HMA", strategy.long, qty=strategy.initial_capital * i_maxLeverage / close)
+if (saleCondicion)
+    strategy.close("Compra HMA")
+
+// Implementación del Stop Loss
+strategy.exit("Stop Loss", from_entry="Compra HMA", loss=strategy.initial_capital * i_stopLossPercent / 100)
+
+// Visualización en el gráfico
+plot(hma, "HMA", color=color.blue)
+hline(0, "Base", color=color.gray, linestyle=hline.style_dotted)
+
