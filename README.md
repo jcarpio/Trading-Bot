@@ -16,7 +16,7 @@ La estrategia de medias cruzadas que da muy buenos resultados en la gráfica 4h 
 
 # Configuración de tradeadapter.com
 En el siguiente enlace tenemos las instrucciones para configurar la conexión entre Trading View y Binance https://tradeadapter.com/connect_tradingview_to_binance
-Crearemos una alarma y enviaremos un mensaje ![Alt text](trading_bot_1.png "Estrategia medias cruzadas 4h ETH")
+Crearemos una alarma y enviaremos un mensaje ![Alt text](alert_notification_setup.png "Alert notification setup")
 
    
 # Links
