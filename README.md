@@ -36,6 +36,7 @@ El mensaje tendrá el siguiente formato
       "order_price": "{{strategy.order.price}}"
   }
 ```
+Obtendremos las API KEYs de la web de Binance Future Testnet
   
 # Links
 ## Tradeadapter
