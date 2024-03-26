@@ -35,7 +35,6 @@ El mensaje tendrá el siguiente formato
       "order_action": "{{strategy.order.action}}",
       "order_price": "{{strategy.order.price}}"
   }
-
 ```
   
 # Links
