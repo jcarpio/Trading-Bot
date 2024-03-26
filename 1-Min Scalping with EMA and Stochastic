@@ -1,0 +1,33 @@
+//@version=5
+strategy("1-Min Scalping with EMA and Stochastic", shorttitle="1Min Scalping EMA Stoch", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+// Define the parameters for EMAs
+lengthEMA50 = 50
+lengthEMA100 = 100
+
+// Calculate the EMAs
+ema50 = ta.ema(close, lengthEMA50)
+ema100 = ta.ema(close, lengthEMA100)
+
+// Stochastic parameters and calculation
+stochK = ta.stoch(close, high, low, 14)
+stochD = ta.sma(stochK, 3)
+
+// Entry conditions
+longCondition = ta.crossover(ema50, ema100) and close > ema50 and close > ema100 and stochK > 20 and stochD > 20
+shortCondition = ta.crossunder(ema50, ema100) and close < ema50 and close < ema100 and stochK < 80 and stochD < 80
+
+// Execute strategy
+if (longCondition)
+    strategy.entry("Long", strategy.long)
+
+if (shortCondition)
+    strategy.entry("Short", strategy.short)
+
+// Plotting
+plot(ema50, color=color.red, title="50 EMA")
+plot(ema100, color=color.blue, title="100 EMA")
+hline(80, "Overbought", color=color.red)
+hline(20, "Oversold", color=color.green)
+
+
