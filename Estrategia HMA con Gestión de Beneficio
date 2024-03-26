@@ -1,0 +1,33 @@
+//@version=5
+strategy("Estrategia HMA con Gestión de Beneficio", overlay=true, initial_capital=10000, currency="USD")
+
+// Parámetros de la estrategia
+i_hmaLength = input.int(14, "Longitud HMA")
+i_profitThreshold = input.float(0.1, title="Umbral de Beneficio (10% = 0.1)")
+
+// Cálculo del HMA
+price = close
+hma = ta.wma(2 * ta.wma(price, i_hmaLength / 2) - ta.wma(price, i_hmaLength), round(math.sqrt(i_hmaLength)))
+
+// Seguimiento del estado de beneficio
+var float profitPct = 0 // Porcentaje de beneficio
+var bool canTrade = true // Controla si la estrategia está permitida para operar
+
+// Actualizar el porcentaje de beneficio y controlar la habilidad para operar
+if (strategy.closedtrades > 0)
+    profitPct := (strategy.equity - strategy.initial_capital) / strategy.initial_capital
+    canTrade := profitPct >= -i_profitThreshold
+
+// Señales de entrada y salida basadas en la cruz del HMA y control de beneficio
+longCondition = ta.crossover(price, hma) and canTrade
+shortCondition = ta.crossunder(price, hma) and canTrade
+
+if (longCondition)
+    strategy.entry("Long", strategy.long)
+
+if (shortCondition)
+    strategy.close("Long")
+
+// Plot del HMA para visualización
+plot(hma, title="HMA", color=color.blue)
+
