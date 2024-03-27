@@ -79,6 +79,7 @@ https://courses.theartoftrading.com/pages/a-simple-pullback-strategy-in-pine-scr
 https://www.youtube.com/watch?v=VOLXKXAReGI
 
 ## Alternatives to Tradeadapter
+https://www.kryll.io/webhooks/
 https://aleeert.com/
 https://cryptorobotics.net/
 https://www.growlonix.com/
