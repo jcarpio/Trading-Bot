@@ -72,8 +72,11 @@ https://www.youtube.com/watch?v=orSfLwMa4E0
 ## Binace How to set up signal trading with tradingview
 https://www.binance.com/en/support/faq/how-to-set-up-signal-trading-with-tradingview-3f57291b56474f5e900cc4b754f61ff3
 
-## 
+## A Simple Pullback Strategy
 https://courses.theartoftrading.com/pages/a-simple-pullback-strategy-in-pine-script
+
+## 1 Minute SCALPING STRATEGY Makes $100 Per Hour
+https://www.youtube.com/watch?v=VOLXKXAReGI
 
 ## Alternatives to Tradeadapter
 https://aleeert.com/
