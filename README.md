@@ -80,6 +80,7 @@ https://www.youtube.com/watch?v=VOLXKXAReGI
 
 ## Alternatives to Tradeadapter
 https://www.kryll.io/webhooks/
+https://tradingview.to/
 https://aleeert.com/
 https://cryptorobotics.net/
 https://www.growlonix.com/
