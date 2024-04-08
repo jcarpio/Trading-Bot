@@ -40,7 +40,7 @@ Obtendremos las API KEYs de la web de Binance Future Testnet  ![Alt text](binanc
 
 En la siguiente imagen se muestra como acceder a la configuración para trabajar con la red Testnet de Binance.
 
-Configuración de la red Testnet de Binance  ![Alt text](trade_adapter_binance_test.png "Binance API KEY")
+Configuración de la red Testnet de Binance  ![Alt text](tradeadapter_binance_test.png "Tradeadapter Binance Testnet Settings")
 
 
 
