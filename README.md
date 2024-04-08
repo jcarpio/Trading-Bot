@@ -97,3 +97,6 @@ https://intellybot.com/
 
 ## Crear un servidor WebHook para Trading en Heroku
 https://github.com/CryptoGnome/Tradingview-Webhook-Bot/tree/main
+
+## Tranding Bot con alertas a Discord, Slack, Telegram, ...
+https://github.com/fabston/TradingView-Webhook-Bot
