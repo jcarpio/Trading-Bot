@@ -38,6 +38,13 @@ El mensaje tendrá el siguiente formato
 ```
 Obtendremos las API KEYs de la web de Binance Future Testnet  ![Alt text](binance_api_key.png "Binance API KEY")
 
+En la siguiente imagen se muestra como acceder a la configuración para trabajar con la red Testnet de Binance.
+
+Configuración de la red Testnet de Binance  ![Alt text](trade_adapter_binance_test.png "Binance API KEY")
+
+
+
+
 Configuramos el mensaje de la Alerta de Trading View que conectará con tradeadapter.com y desde este a Binance Future Testnet. De esta forma tendremos funcionando nuestro Trading Bot que podremos probar antes de pasar a Binance con operaciones reales.
 
 Siguiendo las indicaciones del vídeo Trading ALGORÍTMICO: Cómo crear una estrategia ganadora de trading con TradingView, debemos introducir en nuestro script Stop Loss de diferentes tipos. Por ejemplo podemos introducir un Stop Loss si la rentabilidad de nuestro algoritmo no alcanza un determinado valor. En definitiva debemos introducir elementos que nos permitan parar el Trading Bot si, por cualquier circunstancia, deja de funcionar correctamente.
