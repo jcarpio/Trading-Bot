@@ -1,5 +1,6 @@
 //@version=5
 //@author Koryu
+// Detect Elliot Waves
 indicator(title = "Elliott Wave Oscillator", shorttitle="EWO")
 src = input(close, title="source")
 sma1length = input(5)
